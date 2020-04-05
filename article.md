@@ -2,16 +2,15 @@
 
 title: Au rapport chef !
 author: Jérôme Carré
+keywords: elasticsearch, vega-lite, markdown, marktext
 
 ---
 
 ## Genèse
 
+Les émissions culinaires sont très à la mode : "et si je mélangeais des huîtres avec du caramel ça devrait être bon ..." beurk ! C'est de ce type d'idée bizarre qu'est naît cet article : "Si je mets des data `Elasticsearch` dans un diagramme `vega-lite`, dans un bloc de code `Markdown` ça devrait être ~~bon~~ pros !"
 
-
-Les émissions culinaires sont très à la mode : "et si je mélangeais des huîtres avec du caramel ça devrait être bon ..." ! C'est de ce type d'idée bizarre qu'est naît cet article : "Si je mets des data `Elasticsearch` dans un diagramme `vega-lite`, dans un bloc de code `Markdown` ça devrait être ~~bon~~ pros !"
-
-L'idée a aussi était inspirée d'un outil : [Marktext](https://marktext.app/). C'est un éditeur wysiwyg de `Markdown` qui sait interpréter en live le `vega-lite` ! Il est gratuit, opensource et multi-plateforme (c'est de l'electron) !
+L'idée a aussi était inspirée d'un outil : [Marktext](https://marktext.app/). C'est un éditeur wysiwyg de `Markdown` qui sait interpréter en live le `vega-lite` ! Il est gratuit, opensource et multi-plateforme (c'est de l'electron) ! Il peut aussi faire des exports en PDF des diagrammes `vega-lite`.
 
 ## Les bases
 
@@ -63,50 +62,118 @@ Dans notre cas, on va utiliser *transform* pour faire la somme des achats par pa
 PUT _transform/ecommerce_by_day
 {
   "source": {
-    "index": [
-      "kibana_sample_data_ecommerce"
-    ],
-    "query": {
-      "match_all": {}
-    }
+    "index": [ "kibana_sample_data_ecommerce" ],
+    "query": { "match_all": {} }
   },
-  "dest": {
-    "index": "kibana_sample_data_ecommerce_transform"
-  },
+  "dest": { "index": "transform_kibana_sample_data_ecommerce" },
   "pivot": {
     "group_by": {
-      "geoip.country_iso_code": {
-        "terms": {
-          "field": "geoip.country_iso_code"
-        }
+      "country_iso_code": {
+        "terms": { "field": "geoip.country_iso_code" }
       },
       "order_date": {
-        "date_histogram": {
-          "field": "order_date",
-          "calendar_interval": "1d"
-        }
+        "date_histogram": { "field": "order_date", "calendar_interval": "1d" }
       }
     },
     "aggregations": {
-      "products.taxful_price.sum": {
-        "sum": {
-          "field": "products.taxful_price"
-        }
+      "taxful_price_sum": {
+        "sum": { "field": "products.taxful_price" }
       }
     }
   }
 }
 ```
 
+Une fois créée, il faut lancer la transformation :
 
+```json
+POST _transform/ecommerce_by_day/_start
+```
+
+Et maintenant en une seule requête nous obtenons notre jeu de données pré-calculé :
+
+```shell
+GET transform_kibana_sample_data_ecommerce/_search?q="order_date:>now-2d+AND+order_date:<now-1d"
+```
+
+> Il faut juste préciser que l'on ne veut que les données d'hier.
 
 ### Manipulation
 
+Si vous ne voulez pas utiliser les *transform* ou si votre version d’Elasticsearch ne le permet pas, il ne vous reste plus qu'à manipuler les données dans `vega-lite`.
 
+Le principe est qu'on récupère les données brutes en entrée et ensuite on applique des transformations. Pour ne pas charger toute les données on limitera la période de temps des données, ce qui se fait facilement en une seule requête (voir requête lancée sur la transformation).
+
+On va commencer par voir comment déclarer des données dans `vega-lite`:
+
+```json
+"data": {
+  "url": "http://elasticsearch:9200/kibana_sample_data_ecommerce/_search?q=order_date:>now-2d+AND+order_date:<now-1d",
+  "format": {
+    "type": "json",
+    "property": "hits.hits"
+}
+```
+
+> * une *url* contenant notre requête simple
+> * un bloc *format* permettant de préciser le *type* des données (json pour nous)  et la racine des données : *hits.hits* dans les résultats `Elasticsearch`.
+
+On fait l'hypothèse que les données remontées ne concernent que la journée d'hier. 
+
+On va donc pour simplement préciser que sur l'axe numérique (des montants) on veut faire une somme qui sera forcément corrélées à l'autre axe (des villes) :
+
+```json
+  "encoding": {
+    "x": {
+      "field": "_source.taxful_total_price",
+      "aggregate": "sum",
+      "type": "quantitative",
+    },
+    "y": {
+      "field": "_source.geoip.country_iso_code",
+      "type": "ordinal",
+    }
+  }
+```
+
+> les donnés sont disponibles dans le bloc *_source*
+
+Ça parait plus simple mais l'agrégation est très simple ici. Dans la suite de l'article on priviligiera la solution à base de *transform* `elasticsearch`.
 
 ## Ooooh la belle courbe
 
-Evidemment un camembert !!
+Pour le type de rapport que l'on veut présenter (le montant des ventes d'hier par pays), on se tournerait naturellement vers une représentation en camembert ou donut (si vous plus sucré que salé). Dans `vega-lite` cela s'appelle *arc*. Et ce n'est bizarrement disponible que depuis la version 4.9 (avril 2020) et ... `marktext` n'est qu'en version 4.7 => **Échec pas de représentation en camembert !**
+
+Et bien on choisira une représentation en barres horizontales (*bar* en `vega-lite`).
+
+```json
+{
+  "data": {
+    "url": "http://elasticsearch:9200/transform_kibana_sample_data_ecommerce/_search?q=order_date:<now-1d+AND+order_date:>=now-2d",
+    "format": {
+      "type": "json",
+      "property": "hits.hits"
+    }
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "_source.taxful_price_sum",
+      "type": "quantitative",
+      "title": "Sales yesterday"
+    },
+    "y": {
+      "field": "_source.country_iso_code",
+      "type": "ordinal",
+      "title": "By country (code)"
+    }
+  }
+}
+```
+
+TADAAAAM !!
+
+![bar diagram](bar_diagram.png)
 
 
 

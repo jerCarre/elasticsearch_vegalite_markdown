@@ -1,6 +1,6 @@
 {
   "data": {
-    "url": "http://localhost:9200/kibana_sample_data_ecommerce/_search?q=order_date:<now-1d+AND+order_date:>=now-2d",
+    "url": "http://localhost:9200/kibana_sample_data_ecommerce/_search?q=order_date:>now-2d+AND+order_date:<now-1d",
     "format": {
       "type": "json",
       "property": "hits.hits"
