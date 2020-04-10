@@ -1,5 +1,4 @@
 ---
-
 title: Au rapport chef !
 author: Jérôme Carré
 keywords: elasticsearch, vega-lite, markdown, marktext
@@ -8,9 +7,9 @@ keywords: elasticsearch, vega-lite, markdown, marktext
 
 ## Genèse
 
-Les émissions culinaires sont très à la mode : "et si je mélangeais des huîtres avec du caramel ça devrait être bon ..." beurk ! C'est de ce type d'idée bizarre qu'est naît cet article : "Si je mets des data `Elasticsearch` dans un diagramme `vega-lite`, dans un bloc de code `Markdown` ça devrait être ~~bon~~ pros !"
+Un peu comme dans la dernière émission culinaire à la mode on se dit parfois qu'en  mélangeant tel et tel ingrédient le résultat devrait être bon ! C'est d'une idée bizarre comme ça qu'est naît cet article : "Si je mets des data `Elasticsearch` dans un diagramme `vega-lite`, dans un bloc de code `Markdown` ça devrait être ~~bon~~ pros !"
 
-L'idée a aussi était inspirée d'un outil : [Marktext](https://marktext.app/). C'est un éditeur wysiwyg de `Markdown` qui sait interpréter en live le `vega-lite` ! Il est gratuit, opensource et multi-plateforme (c'est de l'electron) ! Il peut aussi faire des exports en PDF des diagrammes `vega-lite`.
+L'idée a aussi été inspirée d'un outil : [Marktext](https://marktext.app/). C'est un éditeur wysiwyg de `Markdown` qui sait interpréter en live/exporter le `vega/vega-lite` ! 
 
 ## Les bases
 
@@ -20,11 +19,13 @@ Un petit rappel des outils que l'on va mettre en œuvre :
 
 **Markdown** :
 
-**Vega-lite** :
+**Vega-lite** : 
+
+**Marktext** : Il est gratuit, opensource et multi-plateforme (c'est de l'electron) ! Il peut aussi faire des exports en PDF des diagrammes `vega-lite`.
 
 ## A l'origine ... les data
 
-Pour avoir une situation de reporting réaliste, on doit avoir des données représentatives d'une activité métier.  `Elastic Stack` fournit justement des données de démonstration pour cela : d'e-commerce, de navigation aérienne, de trafic web. On choisira les données d'e-commerce. Chaque enregistrement trace l'achat d'un consommateur, avec les produits achetés, la localisation de l'acheteur...
+Pour avoir une situation de reporting réaliste, on doit avoir des données représentatives d'une activité métier.  `Elastic Stack` fournit justement des données de démonstration pour cela : d'e-commerce, de navigation aérienne, de trafic web. On choisira les données d'e-commerce. Chaque enregistrement trace l'achat d'un consommateur, avec : les produits achetés, la localisation de l'acheteur...
 
 Une requête intéressante à afficher serait : le montant des ventes d'hier par pays.
 
@@ -33,11 +34,11 @@ Une requête intéressante à afficher serait : le montant des ventes d'hier par
 ```json
 POST _sql?format=csv
 {
-  "query": "SELECT SUM(taxful_total_price) AS total_price, geoip.country_iso_code AS country 	FROM kibana_sample_data_ecommerce GROUP bY geoip.country_iso_code ORDER BY count",
+  "query": "SELECT SUM(taxful_total_price) AS total_price, geoip.country_iso_code AS country     FROM kibana_sample_data_ecommerce GROUP bY geoip.country_iso_code ORDER BY count",
   "filter": { "range": {
-            	"order_date": {
-                	"gte" : "now-2d/d",
-                	"lte" : "now-1d/d"
+                "order_date": {
+                    "gte" : "now-2d/d",
+                    "lte" : "now-1d/d"
 } } } }
 ```
 
@@ -138,6 +139,8 @@ On va donc pour simplement préciser que sur l'axe numérique (des montants) on 
 
 > les donnés sont disponibles dans le bloc *_source*
 
+TODO : possibilité infinie ds vega => complexité
+
 Ça parait plus simple mais l'agrégation est très simple ici. Dans la suite de l'article on priviligiera la solution à base de *transform* `elasticsearch`.
 
 ## Ooooh la belle courbe
@@ -160,7 +163,7 @@ Et bien on choisira une représentation en barres horizontales (*bar* en `vega-l
     "x": {
       "field": "_source.taxful_price_sum",
       "type": "quantitative",
-      "title": "Sales yesterday"
+      "title": "Sales yesterday ($)"
     },
     "y": {
       "field": "_source.country_iso_code",
@@ -173,9 +176,66 @@ Et bien on choisira une représentation en barres horizontales (*bar* en `vega-l
 
 TADAAAAM !!
 
-![bar diagram](bar_diagram.png)
+![bar diagram](images/bar_diagram.png)
 
+Mais le plus beau reste à venir !!
 
+Nos données contiennent le code du pays dont est issu l'achat. Pourquoi ne pas représenter tout cela sur une carte ?
+`vega-lite` peut manipuler des cartes au format topojson, je ne suis pas spécialiste, mais c'est globalement une description de la forme de chaque pays enrichie de métadonnées.
+Le format du code pays renvoyé par elasticsearch est sur deux caractères, c'est la norme ISO 3166-1 alpha-2. Il ne reste plus qu'à trouver une carte du monde avec ce code pour identifier chaque pays. En voici [une](https://raw.githubusercontent.com/capta-journal/map/master/world/topojson/ne_110m_admin_0_countries.json).
+
+Dans `vega-lie` on va donc déclarer les deux sources de données (la carte et les données) puis les joindre (lookup) en précisant la clef de jointure (world:properties.ISO_A2 → data:_source.country_iso_code). Puis on projetera le fond de carte vide et par dessus les pays portant des données avec un code couleur mettant en avant les plus gros acheteurs.
+
+Voici le code `vega-lite` :
+
+```json
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "width": 900,
+  "height": 500,
+  "data": {
+      "name": "world",
+      "url": "https://raw.githubusercontent.com/capta-journal/map/master/world/topojson/ne_110m_admin_0_countries.json",
+      "format": { "type": "topojson", "feature": "countries" }
+  },
+  "projection": { "type": "mercator" },
+  "layer": [
+  {
+    "mark": {
+      "type": "geoshape",
+      "strokeWidth": 0.5,
+      "stroke": "#bbb",
+      "fill": "#e5e8d3"
+    }
+  },
+  {
+    "transform": [{
+      "lookup": "properties.ISO_A2",
+      "from": {
+        "data": {
+          "url": "http://elasticsearch:9200/transform_kibana_sample_data_ecommerce/_search?q=order_date:<now-1d+AND+order_date:>=now-2d",
+          "format": { "type": "json", "property": "hits.hits" }
+        },
+        "key": "_source.country_iso_code",
+        "fields": ["_source.taxful_price_sum"]
+      }
+    }],
+    "mark": { "type": "geoshape" },
+    "encoding": {
+      "color": {
+        "field": "_source.taxful_price_sum",
+        "type": "quantitative",
+        "title": "Sales yesterday ($)"
+      }
+    }
+  }
+  ]
+}
+```
+
+Ooooooh
+
+![wonderful world](images/world_data.png)
 
 ## Au rapport chef !!
 
@@ -188,3 +248,5 @@ asciidoctor
 ## Limitations
 
 URL single line => authent ?
+
+map: format pays

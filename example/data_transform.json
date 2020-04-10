@@ -12,116 +12,116 @@
             "value": 10,
             "relation": "eq"
         },
-        "max_score": 2.0,
+        "max_score": 1.0,
         "hits": [
             {
                 "_index": "transform_kibana_sample_data_ecommerce",
                 "_type": "_doc",
-                "_id": "QQBV9174edXbitDHbRif3_IVAAAAAAAA",
-                "_score": 2.0,
+                "_id": "QQAB2GywC1C6kFVznnmdu5JpAAAAAAAA",
+                "_score": 1.0,
                 "_source": {
-                    "order_date": 1585958400000,
+                    "order_date": 1586390400000,
                     "country_iso_code": "AE",
-                    "taxful_price_sum": 1261.8046875
+                    "taxful_price_sum": 1861.6328125
                 }
             },
             {
                 "_index": "transform_kibana_sample_data_ecommerce",
                 "_type": "_doc",
-                "_id": "QwBmIxNLE0WkKWaPwQV2fW6IAAAAAAAA",
-                "_score": 2.0,
+                "_id": "QwDI-dYfh0OkefYl-B4qU1bzAAAAAAAA",
+                "_score": 1.0,
                 "_source": {
-                    "order_date": 1585958400000,
+                    "order_date": 1586390400000,
                     "country_iso_code": "CO",
-                    "taxful_price_sum": 187.89453125
+                    "taxful_price_sum": 584.84375
                 }
             },
             {
                 "_index": "transform_kibana_sample_data_ecommerce",
                 "_type": "_doc",
-                "_id": "RQAMLS6C2eoZbQ5-EqzHsppKAAAAAAAA",
-                "_score": 2.0,
+                "_id": "RQA-A2I5RLYidZShIZ3AvfFLAAAAAAAA",
+                "_score": 1.0,
                 "_source": {
-                    "order_date": 1585958400000,
+                    "order_date": 1586390400000,
                     "country_iso_code": "EG",
-                    "taxful_price_sum": 1207.6484375
+                    "taxful_price_sum": 1773.6640625
                 }
             },
             {
                 "_index": "transform_kibana_sample_data_ecommerce",
                 "_type": "_doc",
-                "_id": "RgDwT6tGKKxZLLZc5fkcJOq0AAAAAAAA",
-                "_score": 2.0,
+                "_id": "RgAzNLQBNmBOYUAZ3-Q6CFl2AAAAAAAA",
+                "_score": 1.0,
                 "_source": {
-                    "order_date": 1585958400000,
+                    "order_date": 1586390400000,
                     "country_iso_code": "FR",
-                    "taxful_price_sum": 653.83203125
+                    "taxful_price_sum": 676.8515625
                 }
             },
             {
                 "_index": "transform_kibana_sample_data_ecommerce",
                 "_type": "_doc",
-                "_id": "RwCkfWPQpOD8LWE9mNyd4w32AAAAAAAA",
-                "_score": 2.0,
+                "_id": "RwA6wqTl2Q-F7EdByvOM_T5hAAAAAAAA",
+                "_score": 1.0,
                 "_source": {
-                    "order_date": 1585958400000,
+                    "order_date": 1586390400000,
                     "country_iso_code": "GB",
-                    "taxful_price_sum": 1301.69921875
+                    "taxful_price_sum": 1488.74609375
                 }
             },
             {
                 "_index": "transform_kibana_sample_data_ecommerce",
                 "_type": "_doc",
-                "_id": "TQDZFzp506Yw3iuAgZ-8VLOAAAAAAAAA",
-                "_score": 2.0,
+                "_id": "TQD3adFNoLMr4kZntDi8KI21AAAAAAAA",
+                "_score": 1.0,
                 "_source": {
-                    "order_date": 1585958400000,
+                    "order_date": 1586390400000,
                     "country_iso_code": "MA",
-                    "taxful_price_sum": 1028.73828125
+                    "taxful_price_sum": 1220.75
                 }
             },
             {
                 "_index": "transform_kibana_sample_data_ecommerce",
                 "_type": "_doc",
-                "_id": "TQDeOWzmDmi8kBaqyQVW0b-nAAAAAAAA",
-                "_score": 2.0,
+                "_id": "TQDUsRUQ48FVE4ToarEXOKHQAAAAAAAA",
+                "_score": 1.0,
                 "_source": {
-                    "order_date": 1585958400000,
+                    "order_date": 1586390400000,
                     "country_iso_code": "MC",
-                    "taxful_price_sum": 511.8828125
+                    "taxful_price_sum": 1089.83984375
                 }
             },
             {
                 "_index": "transform_kibana_sample_data_ecommerce",
                 "_type": "_doc",
-                "_id": "UwBQQpRDwSBsfa_XSao3EuzEAAAAAAAA",
-                "_score": 2.0,
+                "_id": "UwBto8p3dAa3n3NUIW2nzHFhAAAAAAAA",
+                "_score": 1.0,
                 "_source": {
-                    "order_date": 1585958400000,
+                    "order_date": 1586390400000,
                     "country_iso_code": "SA",
-                    "taxful_price_sum": 639.83203125
+                    "taxful_price_sum": 882.890625
                 }
             },
             {
                 "_index": "transform_kibana_sample_data_ecommerce",
                 "_type": "_doc",
-                "_id": "VACZVF1k6bDZ6R3iye5ixYn4AAAAAAAA",
-                "_score": 2.0,
+                "_id": "VABUcQ900kewjf_FgnVRm5LPAAAAAAAA",
+                "_score": 1.0,
                 "_source": {
-                    "order_date": 1585958400000,
+                    "order_date": 1586390400000,
                     "country_iso_code": "TR",
-                    "taxful_price_sum": 521.86328125
+                    "taxful_price_sum": 652.80859375
                 }
             },
             {
                 "_index": "transform_kibana_sample_data_ecommerce",
                 "_type": "_doc",
-                "_id": "VQBXSb8xSrzwX3bErY3qWBEOAAAAAAAA",
-                "_score": 2.0,
+                "_id": "VQBn9rnw2SSMNjMGO3_athZ4AAAAAAAA",
+                "_score": 1.0,
                 "_source": {
-                    "order_date": 1585958400000,
+                    "order_date": 1586390400000,
                     "country_iso_code": "US",
-                    "taxful_price_sum": 2569.42578125
+                    "taxful_price_sum": 2380.50390625
                 }
             }
         ]
