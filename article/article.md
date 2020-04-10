@@ -15,13 +15,13 @@ L'idée a aussi été inspirée d'un outil : [Marktext](https://marktext.app/). 
 
 Un petit rappel des outils que l'on va mettre en œuvre :
 
-**Elasticsearch** :
+[**Elasticsearch**](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html) : C'est un moteur d'indexation qui stocke les données en json et est requêtable via une API REST. Il est hautement scalable. Pour notre article on utilisera la version 7.6 en édition basic (gratuite) car les fonctionnalités *SQL* et *Transform* ne sont pas présentes dans la version Open Source.
 
-**Markdown** :
+**Markdown** : TODO
 
-**Vega-lite** : 
+**Vega-lite** : TODO
 
-**Marktext** : Il est gratuit, opensource et multi-plateforme (c'est de l'electron) ! Il peut aussi faire des exports en PDF des diagrammes `vega-lite`.
+**Marktext** : TODO Il est gratuit, opensource et multi-plateforme (c'est de l'electron) ! Il peut aussi faire des exports en PDF des diagrammes `vega-lite`.
 
 ## A l'origine ... les data
 
@@ -184,7 +184,7 @@ Nos données contiennent le code du pays dont est issu l'achat. Pourquoi ne pas 
 `vega-lite` peut manipuler des cartes au format topojson, je ne suis pas spécialiste, mais c'est globalement une description de la forme de chaque pays enrichie de métadonnées.
 Le format du code pays renvoyé par elasticsearch est sur deux caractères, c'est la norme ISO 3166-1 alpha-2. Il ne reste plus qu'à trouver une carte du monde avec ce code pour identifier chaque pays. En voici [une](https://raw.githubusercontent.com/capta-journal/map/master/world/topojson/ne_110m_admin_0_countries.json).
 
-Dans `vega-lie` on va donc déclarer les deux sources de données (la carte et les données) puis les joindre (lookup) en précisant la clef de jointure (world:properties.ISO_A2 → data:_source.country_iso_code). Puis on projetera le fond de carte vide et par dessus les pays portant des données avec un code couleur mettant en avant les plus gros acheteurs.
+Dans `vega-lite` on va donc déclarer les deux sources de données (la carte et les données) puis les joindre (lookup) en précisant la clef de jointure (world:properties.ISO_A2 → data:_source.country_iso_code). Puis on projetera le fond de carte vide et par dessus les pays portant des données avec un code couleur mettant en avant les plus gros acheteurs.
 
 Voici le code `vega-lite` :
 
@@ -239,6 +239,8 @@ Ooooooh
 
 ## Au rapport chef !!
 
+TODO 
+
 La markdown dans marktext
 
 export
@@ -246,6 +248,8 @@ export
 asciidoctor
 
 ## Limitations
+
+TODO
 
 URL single line => authent ?
 

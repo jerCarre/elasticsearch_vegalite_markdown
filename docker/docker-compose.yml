@@ -4,15 +4,9 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
     container_name: elasticsearch
     environment:
-      - node.attr.box_type=hot
-      - node.name=elasticsearch
-      - cluster.name=docker-cluster
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      - xpack.monitoring.collection.enabled=true
       - discovery.type=single-node
-      # - xpack.security.enabled=true
-      # - xpack.security.transport.ssl.enabled=true
     ports:
       - 9200:9200
     ulimits:
