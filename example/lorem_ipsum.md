@@ -30,7 +30,7 @@ ingeniis alis hic omnes tetigisse est segnem **atque**, in fida.
 ```vega-lite
 {
   "data": {
-    "url": "data_transform.json",
+    "url": "https://gist.githubusercontent.com/jerCarre/a801c6cb3d5a1cf7593d80974e63fae4/raw/15413b55441c985f658240059e55ad3ba1e0681e/data_transform.json",
     "format": {
       "type": "json",
       "property": "hits.hits"
@@ -83,7 +83,7 @@ dummodo, exstat quod rutilum illum!
       "lookup": "properties.ISO_A2",
       "from": {
         "data": {
-          "url": "data_transform.json",
+          "url": "https://gist.githubusercontent.com/jerCarre/a801c6cb3d5a1cf7593d80974e63fae4/raw/15413b55441c985f658240059e55ad3ba1e0681e/data_transform.json",
           "format": { "type": "json", "property": "hits.hits" }
         },
         "key": "_source.country_iso_code",

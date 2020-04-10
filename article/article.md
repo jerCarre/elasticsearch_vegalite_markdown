@@ -239,13 +239,16 @@ Ooooooh
 
 ## Au rapport chef !!
 
-TODO 
+Il ne reste plus qu'à mettre tout ça dans un document `markdown` avec `Marktext`. Cet outil nous permet d'ajouter rapidement certains blocs, il suffit de taper `@vega` et un bloc de code arrive. Une fois le code inséré, le rendu est automatique.
 
-La markdown dans marktext
+![marktext](images/marktext.png)
 
-export
+Sauf si votre boss est un peu geek, il n'appréciera pas votre `markdown` à sa juste valeur. Alors un export en PDF en choisissant le thème qui vous convient et le tour est joué !!
 
-asciidoctor
+![pdf](images/export_pdf.png)
+
+
+TODO asciidoctor
 
 ## Limitations
 
