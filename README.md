@@ -1,4 +1,4 @@
-A demonstration of elasticsearch data import inside vega diagram, in markdown document.
+A demonstration of `elasticsearch` data import inside `vega-lite` diagram, in `markdown` document.
 
 * The article [in french](article/article.md)
 
