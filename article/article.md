@@ -7,9 +7,9 @@ keywords: elasticsearch, vega-lite, markdown, marktext
 
 ## Genèse
 
-Un peu comme dans la dernière émission culinaire à la mode on se dit parfois qu'en  mélangeant tel et tel ingrédient le résultat devrait être bon ! C'est d'une idée bizarre comme ça qu'est naît cet article : "Si je mets des data `Elasticsearch` dans un diagramme `vega-lite`, dans un bloc de code `Markdown` ça devrait être ~~bon~~ pros !"
+Un peu comme dans la dernière émission culinaire à la mode on se dit parfois qu'en  mélangeant tel et tel ingrédient le résultat devrait être bon ! C'est d'une idée bizarre comme ça qu'est naît cet article : "Si je mets des data `Elasticsearch` dans un diagramme `vega-lite`, dans un bloc de code `markdown` ça devrait être ~~bon~~ pros !"
 
-L'idée a aussi été inspirée d'un outil : [Marktext](https://marktext.app/). C'est un éditeur wysiwyg de `Markdown` qui sait interpréter en live/exporter le `vega/vega-lite` ! 
+L'idée a aussi été inspirée d'un outil : [Marktext](https://marktext.app/). C'est un éditeur wysiwyg de `markdown` qui sait interpréter en live/exporter le `vega/vega-lite` ! 
 
 ## Les bases
 
@@ -17,11 +17,11 @@ Un petit rappel des outils que l'on va mettre en œuvre :
 
 [**Elasticsearch**](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html) : C'est un moteur d'indexation qui stocke les données en json et est requêtable via une API REST. Il est hautement scalable. Pour notre article on utilisera la version 7.6 en édition basic (gratuite) car les fonctionnalités *SQL* et *Transform* ne sont pas présentes dans la version Open Source.
 
-**Markdown** : TODO
+**Markdown** : C'est un langage léger pour rédiger des documents. Il se concentre sur le fond du document et non sur sa forme. Ce langage est très répandu, notamment dans les outils de gestion de configuration (github, gitlab ...)
 
-**Vega-lite** : TODO
+**Vega-lite** : `vega` et sa version simplifiée `vega-lite` sont des grammaires de description de visualisations (diagrammes). Ce sont aussi des outils pour les rendre dans des environnements javascript. Le `markdown` permet notamment de d'intégrer des blocs de code (comme le `vega-lite`).
 
-**Marktext** : TODO Il est gratuit, opensource et multi-plateforme (c'est de l'electron) ! Il peut aussi faire des exports en PDF des diagrammes `vega-lite`.
+**Marktext** : C'est un éditeur de `markdown` gratuit, opensource et multi-plateforme (c'est de l'electron) ! Il peut aussi faire des exports en PDF des diagrammes `vega-lite`.
 
 ## A l'origine ... les data
 
@@ -29,7 +29,7 @@ Pour avoir une situation de reporting réaliste, on doit avoir des données repr
 
 Une requête intéressante à afficher serait : le montant des ventes d'hier par pays.
 
- On prépare donc une belle requête elasticsearch pour que les données arrivent pré-traitées dans `vega-lite` :
+ On prépare donc une belle requête `Elasticsearch` pour que les données arrivent pré-traitées dans `vega-lite` :
 
 ```json
 POST _sql?format=csv
@@ -139,13 +139,11 @@ On va donc pour simplement préciser que sur l'axe numérique (des montants) on 
 
 > les donnés sont disponibles dans le bloc *_source*
 
-TODO : possibilité infinie ds vega => complexité
-
-Ça parait plus simple mais l'agrégation est très simple ici. Dans la suite de l'article on priviligiera la solution à base de *transform* `elasticsearch`.
+Ça parait plus simple mais l'agrégation est très simple ici. Dans la suite de l'article on privilégiera la solution à base de *transform* `Elasticsearch`. `vega/vega-lite` permet de faire des manipulations complexes des données (agrégations, bucket), mais veut-on vraiment charger notre document avec un code complexe ?
 
 ## Ooooh la belle courbe
 
-Pour le type de rapport que l'on veut présenter (le montant des ventes d'hier par pays), on se tournerait naturellement vers une représentation en camembert ou donut (si vous plus sucré que salé). Dans `vega-lite` cela s'appelle *arc*. Et ce n'est bizarrement disponible que depuis la version 4.9 (avril 2020) et ... `marktext` n'est qu'en version 4.7 => **Échec pas de représentation en camembert !**
+Pour le type de rapport que l'on veut présenter (le montant des ventes d'hier par pays), on se tournerait naturellement vers une représentation en camembert ou donut (si vous êtes plus sucré que salé). Dans `vega-lite` cela s'appelle *arc*. Et ce n'est bizarrement disponible que depuis la version 4.9 (avril 2020) et ... `marktext` n'est qu'en version 4.7 => **Échec pas de représentation en camembert !**
 
 Et bien on choisira une représentation en barres horizontales (*bar* en `vega-lite`).
 
@@ -178,11 +176,9 @@ TADAAAAM !!
 
 ![bar diagram](images/bar_diagram.png)
 
-Mais le plus beau reste à venir !!
+### Mais le plus beau reste à venir !!
 
-Nos données contiennent le code du pays dont est issu l'achat. Pourquoi ne pas représenter tout cela sur une carte ?
-`vega-lite` peut manipuler des cartes au format topojson, je ne suis pas spécialiste, mais c'est globalement une description de la forme de chaque pays enrichie de métadonnées.
-Le format du code pays renvoyé par elasticsearch est sur deux caractères, c'est la norme ISO 3166-1 alpha-2. Il ne reste plus qu'à trouver une carte du monde avec ce code pour identifier chaque pays. En voici [une](https://raw.githubusercontent.com/capta-journal/map/master/world/topojson/ne_110m_admin_0_countries.json).
+Nos données contiennent le code du pays dont est issu l'achat. Pourquoi ne pas représenter tout cela sur une carte ?`vega-lite` peut manipuler des cartes au format *topojson*, je ne suis pas spécialiste, mais c'est globalement une description de la forme de chaque pays enrichie de métadonnées. Le format du code pays renvoyé par `Elasticsearch` est sur deux caractères, c'est la norme *ISO 3166-1 alpha-2*. Il ne reste plus qu'à trouver une carte du monde avec ce code pour identifier chaque pays. En voici [une](https://raw.githubusercontent.com/capta-journal/map/master/world/topojson/ne_110m_admin_0_countries.json).
 
 Dans `vega-lite` on va donc déclarer les deux sources de données (la carte et les données) puis les joindre (lookup) en précisant la clef de jointure (world:properties.ISO_A2 → data:_source.country_iso_code). Puis on projetera le fond de carte vide et par dessus les pays portant des données avec un code couleur mettant en avant les plus gros acheteurs.
 
@@ -247,13 +243,53 @@ Sauf si votre boss est un peu geek, il n'appréciera pas votre `markdown` à sa 
 
 ![pdf](images/export_pdf.png)
 
+On a beaucoup parlé du `markdown` mais un autre langage permet d'intégrer des blocs de visualisations : `asciidoctor`. Lors de la transformation du document asciidoctor en pdf (ou autre) on peut préciser de rendre des diagrammes en image. Plus d'info sur [la doc officielle](https://asciidoctor.org/docs/asciidoctor-diagram/).
 
-TODO asciidoctor
+```asciidoc
+=== Hic ensis iubeas nec
 
-## Limitations
+ore: hic mori numerant in, forsitan intus. Iaculum cepere et repulsae
+maxima dominus recentes, capitum dabat titulos vitant votis, locus si
 
-TODO
+[vegalite]
+----
+{
+  "data": {
+    "url": "data_transform.json",
+    "format": {
+      "type": "json",
+      "property": "hits.hits"
+    }
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "_source.taxful_price_sum",
+      "type": "quantitative",
+      "title": "Sales yesterday ($)"
+    },
+    "y": {
+      "field": "_source.country_iso_code",
+      "type": "ordinal",
+      "title": "By country (code)"
+    }
+  }
+}
+----
+```
 
-URL single line => authent ?
+Et le pdf ...
 
-map: format pays
+![pdf adoc](images/pdf_adoc.png)
+
+## Conclusion
+
+On a don réussi à connecter une visualisation `vega-lite` avec une `elasticsearch` et de rendre ce diagramme dans du `markdown` puis un PDF. Cerise sur le gateau on a même réussi à projeter ces donées sur un fond de carte, histoire d'avoir un rendu plus sexy !
+
+Mais tout ne s'est pas passé exactement comme on le souhaitait. Il faut donc se souvenir que :
+
+* on ne peut avoir qu'une URL simple dans `vega-lite`. Cela pose la question d'une authentification même par token.
+
+* l'intégration de `vega-lite` dans `Marktext` (ou tout autre éditeur) est au bon vouloir des développeurs, on pourra donc être limité sur les fonctionnlités disponibles.
+
+* la manipulation de données normées peut parfois s'avérer paradoxalement plus compliquée (ex: code pays)

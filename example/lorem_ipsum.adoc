@@ -30,6 +30,7 @@ maxima dominus recentes, capitum dabat titulos vitant votis, locus si
 invenit posse desinite. Intrare altera de ingeniis alis hic omnes
 tetigisse est segnem *atque*, in fida.
 
+.Bar diagram
 [vegalite]
 ----
 {
@@ -62,6 +63,7 @@ annos in desinit iuvat inbellibus dixit, optas ira fusus. Priorem
 trabibus, recessit dominae. Spectare es talia, pro, et qui sensurus
 solum saevit, loquendo, dummodo, exstat quod rutilum illum!
 
+.Map diagram
 [vegalite]
 ----
 {
