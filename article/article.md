@@ -1,10 +1,3 @@
----
-title: Au rapport chef !
-author: Jérôme Carré
-keywords: elasticsearch, vega-lite, markdown, marktext
-
----
-
 ## Genèse
 
 Un peu comme dans la dernière émission culinaire à la mode on se dit parfois qu'en  mélangeant tel et tel ingrédient le résultat devrait être bon ! C'est d'une idée bizarre comme ça qu'est naît cet article : "Si je mets des data `Elasticsearch` dans un diagramme `vega-lite`, dans un bloc de code `markdown` ça devrait être ~~bon~~ pros !"
