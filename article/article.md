@@ -277,12 +277,12 @@ Et le pdf ...
 
 ## Conclusion
 
-On a don réussi à connecter une visualisation `vega-lite` avec une `elasticsearch` et de rendre ce diagramme dans du `markdown` puis un PDF. Cerise sur le gateau on a même réussi à projeter ces donées sur un fond de carte, histoire d'avoir un rendu plus sexy !
+On a donc réussi à connecter une visualisation `vega-lite` avec une `elasticsearch` et de rendre ce diagramme dans du `markdown` puis un PDF. Cerise sur le gateau on a même réussi à projeter ces données sur un fond de carte, histoire d'avoir un rendu plus sexy !
 
 Mais tout ne s'est pas passé exactement comme on le souhaitait. Il faut donc se souvenir que :
 
 * on ne peut avoir qu'une URL simple dans `vega-lite`. Cela pose la question d'une authentification même par token.
 
-* l'intégration de `vega-lite` dans `Marktext` (ou tout autre éditeur) est au bon vouloir des développeurs, on pourra donc être limité sur les fonctionnlités disponibles.
+* l'intégration de `vega-lite` dans `Marktext` (ou tout autre éditeur) est au bon vouloir des développeurs, on pourra donc être limité sur les fonctionnalités disponibles.
 
-* la manipulation de données normées peut parfois s'avérer paradoxalement plus compliquée (ex: code pays)
+* la manipulation de données normées peut parfois s'avérer, paradoxalement, plus compliquée (ex: code pays)
