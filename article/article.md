@@ -12,7 +12,7 @@ Un petit rappel des outils que l'on va mettre en œuvre :
 
 [**Markdown**](https://en.wikipedia.org/wiki/Markdown) : C'est un langage léger pour rédiger des documents. Il se concentre sur le fond du document et non sur sa forme. Ce langage est très répandu, notamment dans les outils de gestion de configuration (github, gitlab ...)
 
-[**Vega-lite**](https://vega.github.io/vega-lite/) : `vega` et sa version simplifiée `vega-lite` sont des grammaires de description de visualisations (diagrammes). Ce sont aussi des outils pour les rendre dans des environnements javascript. Le `markdown` permet notamment de d'intégrer des blocs de code (comme le `vega-lite`).
+[**Vega-lite**](https://vega.github.io/vega-lite/) : `vega` et sa version simplifiée `vega-lite` sont des grammaires de description de visualisations (diagrammes). Ce sont aussi des outils pour les rendre dans des environnements javascript. Le `markdown` permet notamment d'intégrer des blocs de code comme le `vega-lite`.
 
 [**Marktext**](https://marktext.app/) : C'est un éditeur de `markdown` gratuit, opensource et multi-plateforme (c'est de l'electron) ! Il peut aussi faire des exports en PDF des diagrammes `vega-lite`. Dans cette article nous utiliserons la version 0.16.1.
 
