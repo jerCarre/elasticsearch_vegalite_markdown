@@ -286,3 +286,7 @@ Mais tout ne s'est pas passé exactement comme on le souhaitait. Il faut donc se
 * l'intégration de `vega-lite` dans `Marktext` (ou tout autre éditeur) est au bon vouloir des développeurs, on pourra donc être limité sur les fonctionnalités disponibles.
 
 * la manipulation de données normées peut parfois s'avérer, paradoxalement, plus compliquée (ex: code pays)
+
+## Sources
+
+![gitbub](images/GitHub-Mark-32px.png) : [repo github](https://github.com/jerCarre/elasticsearch_vegalite_markdown)
