@@ -10,11 +10,11 @@ Un petit rappel des outils que l'on va mettre en œuvre :
 
 [**Elasticsearch**](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html) : C'est un moteur d'indexation qui stocke les données en json et est requêtable via une API REST. Il est hautement scalable. Pour notre article on utilisera la version 7.6 en édition basic (gratuite) car les fonctionnalités *SQL* et *Transform* ne sont pas présentes dans la version Open Source.
 
-**Markdown** : C'est un langage léger pour rédiger des documents. Il se concentre sur le fond du document et non sur sa forme. Ce langage est très répandu, notamment dans les outils de gestion de configuration (github, gitlab ...)
+[**Markdown**](https://en.wikipedia.org/wiki/Markdown) : C'est un langage léger pour rédiger des documents. Il se concentre sur le fond du document et non sur sa forme. Ce langage est très répandu, notamment dans les outils de gestion de configuration (github, gitlab ...)
 
-**Vega-lite** : `vega` et sa version simplifiée `vega-lite` sont des grammaires de description de visualisations (diagrammes). Ce sont aussi des outils pour les rendre dans des environnements javascript. Le `markdown` permet notamment de d'intégrer des blocs de code (comme le `vega-lite`).
+[**Vega-lite**](https://vega.github.io/vega-lite/) : `vega` et sa version simplifiée `vega-lite` sont des grammaires de description de visualisations (diagrammes). Ce sont aussi des outils pour les rendre dans des environnements javascript. Le `markdown` permet notamment de d'intégrer des blocs de code (comme le `vega-lite`).
 
-**Marktext** : C'est un éditeur de `markdown` gratuit, opensource et multi-plateforme (c'est de l'electron) ! Il peut aussi faire des exports en PDF des diagrammes `vega-lite`.
+[**Marktext**](https://marktext.app/) : C'est un éditeur de `markdown` gratuit, opensource et multi-plateforme (c'est de l'electron) ! Il peut aussi faire des exports en PDF des diagrammes `vega-lite`.
 
 ## A l'origine ... les data
 
