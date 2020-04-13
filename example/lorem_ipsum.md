@@ -74,8 +74,8 @@ dummodo, exstat quod rutilum illum!
     "mark": {
       "type": "geoshape",
       "strokeWidth": 0.5,
-      "stroke": "#bbb",
-      "fill": "#e5e8d3"
+      "stroke": "#bad4ed",
+      "fill": "#f0f4f9"
     }
   },
   {
@@ -95,7 +95,7 @@ dummodo, exstat quod rutilum illum!
       "color": {
         "field": "_source.taxful_price_sum",
         "type": "quantitative",
-        "title": "Sales yesterday ($)"
+        "title": "Sales($)"
       }
     }
   }

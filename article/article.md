@@ -112,7 +112,7 @@ On va commencer par voir comment déclarer des données dans `vega-lite`:
 > * une *url* contenant notre requête simple
 > * un bloc *format* permettant de préciser le *type* des données (json pour nous)  et la racine des données : *hits.hits* dans les résultats `Elasticsearch`.
 
-On fait l'hypothèse que les données remontées ne concernent que la journée d'hier. 
+On fait l'hypothèse que les données remontées ne concernent que la journée d'hier.
 
 On va donc pour simplement préciser que sur l'axe numérique (des montants) on veut faire une somme qui sera forcément corrélées à l'autre axe (des villes) :
 
@@ -234,7 +234,7 @@ Il ne reste plus qu'à mettre tout ça dans un document `markdown` avec `Marktex
 
 Sauf si votre boss est un peu geek, il n'appréciera pas votre `markdown` à sa juste valeur. Alors un export en PDF en choisissant le thème qui vous convient et le tour est joué !!
 
-![pdf](images/export_pdf.png)
+![pdf](images/pdf_marktext.png)
 
 On a beaucoup parlé du `markdown` mais un autre langage permet d'intégrer des blocs de visualisations : `asciidoctor`. Lors de la transformation du document asciidoctor en pdf (ou autre) on peut préciser de rendre des diagrammes en image. Plus d'info sur [la doc officielle](https://asciidoctor.org/docs/asciidoctor-diagram/).
 
