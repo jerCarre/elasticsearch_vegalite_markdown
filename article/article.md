@@ -27,11 +27,12 @@ Une requête intéressante à afficher serait : le montant des ventes d'hier par
 ```json
 POST _sql?format=csv
 {
-  "query": "SELECT SUM(taxful_total_price) AS total_price, geoip.country_iso_code AS country     FROM kibana_sample_data_ecommerce GROUP bY geoip.country_iso_code ORDER BY count",
-  "filter": { "range": {
-                "order_date": {
-                    "gte" : "now-2d/d",
-                    "lte" : "now-1d/d"
+  "query": "SELECT SUM(taxful_total_price) AS total_price, geoip.country_iso_code AS country FROM kibana_sample_data_ecommerce GROUP bY geoip.country_iso_code ORDER BY count",
+  "filter": { 
+    "range": {
+      "order_date": {
+          "gte" : "now-2d/d",
+          "lte" : "now-1d/d"
 } } } }
 ```
 
@@ -259,7 +260,7 @@ maxima dominus recentes, capitum dabat titulos vitant votis, locus si
     "x": {
       "field": "_source.taxful_price_sum",
       "type": "quantitative",
-      "title": "Sales yesterday ($)"
+      "title": "Sales($)"
     },
     "y": {
       "field": "_source.country_iso_code",
