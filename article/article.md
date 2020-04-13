@@ -2,7 +2,9 @@
 
 Un peu comme dans la dernière émission culinaire à la mode on se dit parfois qu'en  mélangeant tel et tel ingrédient le résultat devrait être bon ! C'est d'une idée bizarre comme ça qu'est naît cet article : "Si je mets des data `Elasticsearch` dans un diagramme `vega-lite`, dans un bloc de code `markdown` ça devrait être ~~bon~~ pros !"
 
-L'idée a aussi été inspirée d'un outil : [Marktext](https://marktext.app/). C'est un éditeur wysiwyg de `markdown` qui sait interpréter en live/exporter le `vega/vega-lite` ! 
+L'idée a aussi été inspirée d'un outil : [Marktext](https://marktext.app/). C'est un éditeur wysiwyg de `markdown` qui sait interpréter en live/exporter le `vega/vega-lite` !
+
+![banner](images/banner.png)
 
 ## Les bases
 
