@@ -97,7 +97,7 @@ GET transform_kibana_sample_data_ecommerce/_search?q="order_date:>now-2d+AND+ord
 
 Si vous ne voulez pas utiliser les *transform* ou si votre version d’Elasticsearch ne le permet pas, il ne vous reste plus qu'à manipuler les données dans `vega-lite`.
 
-Le principe est qu'on récupère les données brutes en entrée et ensuite on applique des transformations. Pour ne pas charger toute les données on limitera la période de temps des données, ce qui se fait facilement en une seule requête (voir requête lancée sur la transformation).
+Le principe est qu'on récupère les données brutes en entrée et ensuite on applique des transformations. Pour ne pas charger toutes les données on limitera la période de temps des données, ce qui se fait facilement en une seule requête (voir requête lancée sur la transformation).
 
 On va commencer par voir comment déclarer des données dans `vega-lite`:
 
@@ -282,7 +282,7 @@ On a donc réussi à connecter une visualisation `vega-lite` avec une `elasticse
 
 Mais tout ne s'est pas passé exactement comme on le souhaitait. Il faut donc se souvenir que :
 
-* on ne peut avoir qu'une URL simple dans `vega-lite`. Cela pose la question d'une authentification même par token.
+* on ne peut avoir qu'une URL simple dans `vega-lite`, cela pose la question d'une authentification même par token.
 
 * l'intégration de `vega-lite` dans `Marktext` (ou tout autre éditeur) est au bon vouloir des développeurs, on pourra donc être limité sur les fonctionnalités disponibles.
 
