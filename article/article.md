@@ -1,3 +1,8 @@
+---
+title: Au rapport chef !!
+keywords: output.note
+---
+
 ## Genèse
 
 Un peu comme dans la dernière émission culinaire à la mode on se dit parfois qu'en  mélangeant tel et tel ingrédient le résultat devrait être bon ! C'est d'une idée bizarre comme ça qu'est naît cet article : "Si je mets des data `Elasticsearch` dans un diagramme `vega-lite`, dans un bloc de code `markdown` ça devrait être ~~bon~~ pros !"
@@ -12,9 +17,9 @@ Un petit rappel des outils que l'on va mettre en œuvre :
 
 [**Elasticsearch**](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html) : C'est un moteur d'indexation qui stocke les données en json et est requêtable via une API REST. Il est hautement scalable. Pour notre article on utilisera la version 7.6 en édition basic (gratuite) car les fonctionnalités *SQL* et *Transform* ne sont pas présentes dans la version Open Source.
 
-[**Markdown**](https://en.wikipedia.org/wiki/Markdown) : C'est un langage léger pour rédiger des documents. Il se concentre sur le fond du document et non sur sa forme. Ce langage est très répandu, notamment dans les outils de gestion de configuration (github, gitlab ...)
+[**Markdown**](https://en.wikipedia.org/wiki/Markdown) : C'est un langage léger pour rédiger des documents. Il se concentre sur le fond du document et non sur sa forme. Ce langage est très répandu, notamment dans les outils de gestion de configuration (github, gitlab ...). Le `markdown` ayant un format texte, il est complétement adapté à la gestion de conf (git).
 
-[**Vega-lite**](https://vega.github.io/vega-lite/) : `vega` et sa version simplifiée `vega-lite` sont des grammaires de description de visualisations (diagrammes). Ce sont aussi des outils pour les rendre dans des environnements javascript. Le `markdown` permet notamment d'intégrer des blocs de code comme le `vega-lite`.
+[**Vega-lite**](https://vega.github.io/vega-lite/) : `vega` et sa version simplifiée `vega-lite` sont des grammaires de description de visualisations (diagrammes). Ce sont aussi des outils pour les rendre dans des environnements javascript. Le `markdown` permet notamment d'intégrer des blocs de code comme le `vega-lite`, ainsi ces diagrammes seront aussi gérés en conf. Un [éditeur en ligne](https://vega.github.io/editor/) permet de débugger le `vega/vega-lite`.
 
 [**Marktext**](https://marktext.app/) : C'est un éditeur de `markdown` gratuit, opensource et multi-plateforme (c'est de l'electron) ! Il peut aussi faire des exports en PDF des diagrammes `vega-lite`. Dans cette article nous utiliserons la version 0.16.1.
 
@@ -280,7 +285,7 @@ Et le pdf ...
 
 ## Conclusion
 
-On a donc réussi à connecter une visualisation `vega-lite` avec une `elasticsearch` et de rendre ce diagramme dans du `markdown` puis un PDF. Cerise sur le gateau on a même réussi à projeter ces données sur un fond de carte, histoire d'avoir un rendu plus sexy !
+On a donc réussi à connecter une visualisation `vega-lite` avec une `elasticsearch` et de rendre ce diagramme dans du `markdown` puis un PDF. Cerise sur le gateau on a même réussi à projeter ces données sur un fond de carte, histoire d'avoir un rendu plus sexy ! On pourra imaginer de générer ces rapports via une chaîne CI/CD.
 
 Mais tout ne s'est pas passé exactement comme on le souhaitait. Il faut donc se souvenir que :
 
