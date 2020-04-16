@@ -5,7 +5,7 @@ keywords: output.note
 
 ## Genèse
 
-Un peu comme dans la dernière émission culinaire à la mode on se dit parfois qu'en  mélangeant tel et tel ingrédient le résultat devrait être bon ! C'est d'une idée bizarre comme ça qu'est naît cet article : "Si je mets des data `Elasticsearch` dans un diagramme `vega-lite`, dans un bloc de code `markdown` ça devrait être ~~bon~~ pros !"
+Un peu comme dans la dernière émission culinaire à la mode on se dit parfois qu'en  mélangeant tel et tel ingrédient le résultat devrait être bon ! C'est d'une idée bizarre comme ça qu'est né cet article : "Si je mets des data `Elasticsearch` dans un diagramme `vega-lite`, dans un bloc de code `markdown` ça devrait être ~~bon~~ pros !"
 
 ![banner](images/banner.png)
 
@@ -21,7 +21,7 @@ Un petit rappel des outils que l'on va mettre en œuvre :
 
 [**Vega-lite**](https://vega.github.io/vega-lite/) : `vega` et sa version simplifiée `vega-lite` sont des grammaires de description de visualisations (diagrammes). Ce sont aussi des outils pour les rendre dans des environnements javascript. Le `markdown` permet notamment d'intégrer des blocs de code comme le `vega-lite`, ainsi ces diagrammes seront aussi gérés en conf. Un [éditeur en ligne](https://vega.github.io/editor/) permet de débugger le `vega/vega-lite`.
 
-[**Marktext**](https://marktext.app/) : C'est un éditeur de `markdown` gratuit, opensource et multi-plateforme (c'est de l'electron) ! Il peut aussi faire des exports en PDF des diagrammes `vega-lite`. Dans cette article nous utiliserons la version 0.16.1.
+[**Marktext**](https://marktext.app/) : C'est un éditeur de `markdown` gratuit, opensource et multi-plateforme (c'est de l'electron) ! Il peut aussi faire des exports en PDF des diagrammes `vega-lite`. Dans cet article nous utiliserons la version 0.16.1.
 
 ## A l'origine ... les data
 
@@ -37,7 +37,7 @@ POST _sql?format=csv
   "query": "SELECT SUM(taxful_total_price) AS total_price, geoip.country_iso_code AS country FROM kibana_sample_data_ecommerce GROUP bY geoip.country_iso_code ORDER BY count",
   "filter": { 
     "range": {
-      "order_date": {
+      "order_date": {~
           "gte" : "now-2d/d",
           "lte" : "now-1d/d"
 } } } }
